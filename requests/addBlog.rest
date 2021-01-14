@@ -1,0 +1,10 @@
+post http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikp1bGl1cyIsImlkIjoiNWYwYzdiNGFkNTA5NzMyNDJlMjQ3ZjA5IiwiaWF0IjoxNTk0NzE0OTc1fQ.lbNWhtujqjQ3DVayaFkoWNhZZemQCtpjKgPcmSeLhl8
+
+
+{
+    "title": "Autonomous drone maker Skydio shifts to military and enterprise with its first folding drone",
+    "author": "Nick Statt",
+    "url": "https://www.theverge.com/2020/7/13/21322832/skydio-x2-commercial-drone-enterprise-military-announce-100-million-funding"
+}
