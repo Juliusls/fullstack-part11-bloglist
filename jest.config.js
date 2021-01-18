@@ -1,4 +1,4 @@
 module.exports = {
     testEnvironment: 'node',
-    testPathIgnorePatterns: ['<rootDir>/cypress/'],
+    testPathIgnorePatterns: ['<rootDir>/client/cypress/', '<rootDir>/node_modules/']
 }

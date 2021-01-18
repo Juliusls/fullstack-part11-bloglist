@@ -28,6 +28,7 @@
     "mongoose-unique-validator": "^2.0.3"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.12.10",
     "cross-env": "^7.0.0",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.22.0",
