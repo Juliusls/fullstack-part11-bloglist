@@ -8,6 +8,11 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-18.04
+    env: 
+      MONGODB_URI: ${{ secrets.MONGO_URI }} 
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGO_URI }} 
+      PORT: ${{ secrets.PORT }} 
+      SECRET: ${{ secrets.SECRET }} 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
