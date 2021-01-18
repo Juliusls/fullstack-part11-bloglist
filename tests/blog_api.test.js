@@ -109,7 +109,7 @@ describe('posting blogs', () => {
         }
 
         if (typeof token === 'undefined') {
-            console.log('smt')
+            console.log('Log from inside of: adding blog fails if token is not provided')
         }
 
         await api
@@ -154,6 +154,9 @@ describe('deleting blogs',  () => {
 
 describe('updating blogs',  () => {
     test('update blog works', async () => {
+        const login = await api
+            .post('/api/login')
+            .send(loginDetails)
         const blogsBeforePut = await helper.blogsInDb()
         const blogToUpdate = blogsBeforePut[0]
 
@@ -164,6 +167,8 @@ describe('updating blogs',  () => {
         await api
             .put(`/api/blogs/${blogToUpdate.id}`)
             .send(testBlog)
+            // eslint-disable-next-line quotes
+            .set({ "Authorization": `Bearer ${login.body.token}` })
             .expect(204)
 
         const blogsAfterPut = await helper.blogsInDb()
