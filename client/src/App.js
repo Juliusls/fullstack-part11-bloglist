@@ -111,6 +111,7 @@ const App = () => {
 
             blogService
                 .remove(id)
+                // eslint-disable-next-line no-unused-vars
                 .then(removedBlog => {
                     setUpdateBlog(!updateBlog)
                     setMessage('Blog removed')

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const dummy = (blogs) => {
     return 1
 }
@@ -30,12 +31,12 @@ const mostBlogs = (blogs) => {
 
     blogs.forEach(blog => {
         const currentAuthor = blog.author
-        console.log('currentAuthor', currentAuthor);
+        console.log('currentAuthor', currentAuthor)
 
         authorsOcurrences[currentAuthor]
             ? authorsOcurrences[currentAuthor]++
             : authorsOcurrences[currentAuthor] = 1
-        console.log('authorsOcurrences', authorsOcurrences);
+        console.log('authorsOcurrences', authorsOcurrences)
 
         if (authorsOcurrences[author] < authorsOcurrences[currentAuthor])
             author = currentAuthor

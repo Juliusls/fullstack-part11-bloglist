@@ -3,12 +3,14 @@ module.exports = {
         "browser": true,
         "es6": true,
         "jest/globals": true,
-        "cypress/globals": true
+        "cypress/globals": true,
+        "node": true
     },
     "extends": [ 
         "eslint:recommended",
         "plugin:react/recommended"
     ],
+    "parser": 'babel-eslint',
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -16,8 +18,15 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "settings": {
+        "react": {
+          "version": 'detect',
+        },
+    },
     "plugins": [
-        "react", "jest", "cypress"
+        "react",
+        "jest",
+        "cypress"
     ],
     "rules": {
         "indent": [

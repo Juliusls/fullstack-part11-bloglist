@@ -131,6 +131,7 @@ describe('deleting blogs',  () => {
             .post('/api/login')
             .send(loginDetails)
 
+        // eslint-disable-next-line no-unused-vars
         const testBlog = {
             title: 'Unreal Engine can now capture facial expressions via an official iOS app',
             author: 'Jon Porter',
