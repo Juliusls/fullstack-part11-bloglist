@@ -11,9 +11,9 @@
     "lint": "eslint .",
     "build:client": "rm -rf build && cd client && npm run build && cp -r build ../",
     "lint:client": "cd client && npm run lint",
-    "test:client": "cd client && npm run test",
+    "test:client": "cd client && npm test",
     "lint:all": "npm run lint && npm run lint:client",
-    "test:all": "npm run test && npm run test:client",
+    "test:all": "npm test && npm run test:client",
     "test:e2e": "cd client && npm run test:e2e"
   },
   "author": "Julius Lubys",
