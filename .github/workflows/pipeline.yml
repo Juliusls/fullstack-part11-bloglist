@@ -1,0 +1,29 @@
+name: Hello World!
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: npm install
+        run: npm install && cd client && npm install
+      - name: lint
+        run: npm run lint:all
+      - name: build
+        run: npm run build:client
+      - name: test
+        run: npm run test:all
+      - name: test e2e
+        uses: cypress-io/github-action@v2
+          with:
+            command: npm run test:e2e
+            start: npm run start:test
+            wait-on: 'http://localhost:3001'
