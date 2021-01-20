@@ -58,16 +58,16 @@ describe('Blog app', function() {
         describe('blog exists', function() {
             beforeEach(function(){
                 cy.createBlog({
-                    title: 'BMW will make an all-electric 5 Series, 7 Series, and X1',
-                    author: 'Sean Kane',
-                    url: 'https://www.theverge.com/2020/7/28/21345464/bmw-5-7-series-x1-electric-car-ev-plug-in'
+                    title: 'Blog created by Cypress',
+                    author: 'Cypress',
+                    url: 'https://www.cypress.io'
                 })
             })
             it('User can like a blog', function() {
-                cy.contains('BMW will make an all-electric 5 Series, 7 Series, and X1 - Sean Kane').contains('view').click()
+                cy.contains('Blog created by Cypress - Cypress').contains('view').click()
                 cy.contains('like').click()
 
-                cy.contains('BMW will make an all-electric 5 Series, 7 Series, and X1 - Sean Kane').contains('view').click()
+                cy.contains('Blog created by Cypress - Cypress').contains('view').click()
                 cy.get('#blogLikes').contains('1')
             })
         })
