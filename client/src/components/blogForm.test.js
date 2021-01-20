@@ -16,6 +16,7 @@ describe('BlogForm', () => {
         <BlogForm newBlog={createBlog}/>
     )
 
+
     test('new blog receives correct data', () => {
         const form = component.container.querySelector('.blogForm')
         const titleInput = component.container.querySelector('.titleInput')

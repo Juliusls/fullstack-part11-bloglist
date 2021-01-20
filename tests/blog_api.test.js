@@ -125,30 +125,20 @@ describe('posting blogs', () => {
 
 // describe('deleting blogs',  () => {
 //     test('delete blog with id', async () => {
+//         const blogsBeforeDelete = await helper.blogsInDb()
+
 //         const login = await api
 //             .post('/api/login')
 //             .send(loginDetails)
 
-//         const blogDeleteTest = {
-//             title: 'Blog to delete',
-//             author: 'Julius',
-//             url: 'https://www.theverge.com/',
-//             likes: 5
+//         // eslint-disable-next-line no-unused-vars
+//         const testBlog = {
+//             title: 'Unreal Engine can now capture facial expressions via an official iOS app',
+//             author: 'Jon Porter',
+//             url: 'https://www.theverge.com/2020/7/9/21318440/unreal-engine-facial-capture-ios-app-arkit-truedepth-front-facing-camera-animation',
 //         }
 
-//         await api
-//             .post('/api/blogs')
-//             // eslint-disable-next-line quotes
-//             .set({ "Authorization": `Bearer ${login.body.token}` })
-//             .send(blogDeleteTest)
-//             .expect(201)
-//             .expect('Content-Type', /application\/json/)
-
-//         const blogsBeforeDelete = await helper.blogsInDb()
-//         const blogToDelete = blogsBeforeDelete.filter(blog => blog.title === blogDeleteTest.title)
-
-
-//         console.log('blogToDelete', blogToDelete.id)
+//         const blogToDelete = blogsBeforeDelete[2]
 
 //         await api
 //             .delete(`/api/blogs/${blogToDelete.id}`)

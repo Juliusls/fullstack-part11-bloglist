@@ -34,10 +34,7 @@
       "last 1 safari version"
     ]
   },
-  "babel": {
-    "presets": [ "@babel/preset-react"],
-    "plugins": [ "@babel/preset-react" ]
-  },
+  "proxy": "http://localhost:3001",
   "devDependencies": {
     "@babel/preset-react": "^7.12.10",
     "@testing-library/jest-dom": "^4.2.4",
@@ -45,6 +42,5 @@
     "cypress": "^4.11.0",
     "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-jest": "^23.18.0"
-  },
-  "proxy": "http://localhost:3001"
+  }
 }
