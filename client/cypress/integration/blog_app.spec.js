@@ -56,18 +56,16 @@ describe('Blog app', function() {
         })
 
         describe('blog exists', function() {
-            beforeEach(function(){
-                cy.createBlog({
-                    title: 'Blog created by Cypress',
-                    author: 'Cypress',
-                    url: 'https://www.cypress.io'
-                })
+            beforeEach(function() {
+                cy.createBlog({ title: 'First blog', author: 'First author', url: 'firstblog.com' })
+                cy.createBlog({ title: 'Second blog', author: 'Second author', url: 'secondblog.com' })
+                cy.createBlog({ title: 'Third blog', author: 'Third author', url: 'thirdblog.com' })
             })
             it('User can like a blog', function() {
-                cy.contains('Blog created by Cypress - Cypress').contains('view').click()
+                cy.contains('First blog - First author').contains('view').click()
                 cy.contains('like').click()
 
-                cy.contains('Blog created by Cypress - Cypress').contains('view').click()
+                cy.contains('First blog - First author').contains('view').click()
                 cy.get('#blogLikes').contains('1')
             })
         })
