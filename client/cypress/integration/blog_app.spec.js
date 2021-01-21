@@ -58,28 +58,23 @@ describe('Blog app', function() {
         describe('blog exists', function() {
             beforeEach(function() {
                 cy.createBlog({ title: 'First blog', author: 'First author', url: 'firstblog.com' })
-                cy.createBlog({ title: 'Second blog', author: 'Second author', url: 'secondblog.com' })
-                cy.createBlog({ title: 'Third blog', author: 'Third author', url: 'thirdblog.com' })
+
             })
             it('User can like a blog', function() {
-                cy.contains('First blog - First author').contains('view').click()
+                cy.contains('view').click()
                 cy.contains('like').click()
-
-                cy.contains('First blog - First author').contains('view').click()
+                cy.contains('view').click()
                 cy.get('#blogLikes').contains('1')
+            })
+
+            it('blog can be deleted by creator', function() {
+                cy.contains('view').click()
+                cy.contains('remove').click()
+                cy.contains('Blog removed')
             })
         })
 
         describe('few blogs can exist', function() {
-            it('blog can be deleted by creator', function() {
-                cy.createBlog({ title: 'First blog', author: 'First author', url: 'firstblog.com' })
-                cy.createBlog({ title: 'Second blog', author: 'Second author', url: 'secondblog.com' })
-                cy.createBlog({ title: 'Third blog', author: 'Third author', url: 'thirdblog.com' })
-                cy.contains('First blog').contains('view').click()
-                cy.contains('remove').click()
-                cy.contains('Blog removed')
-            })
-
             it('blogs are ordered by likes', function(){
                 cy.createBlogWithLikes({ title: 'First blog', author: 'First author', url: 'firstblog.com', likes: 4 })
                 cy.createBlogWithLikes({ title: 'Second blog', author: 'Second author', url: 'secondblog.com', likes: 1 })

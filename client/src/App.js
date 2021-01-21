@@ -101,16 +101,17 @@ const App = () => {
             })
     }
 
-    const deleteBlog = id => {
+    const deleteBlog = async (id) => {
         const blog = blogs.filter(b => b.id === id)[0]
 
         if (window.confirm(`Remove blog ${blog.title} by ${blog.author} ?`)) {
             setFetchInProgress(true)
 
             blogService.setToken(user.token)
+            console.log(user.token)
 
-            blogService
-                .remove(id)
+            await blogService
+                .deleteBlog(id)
                 // eslint-disable-next-line no-unused-vars
                 .then(removedBlog => {
                     setUpdateBlog(!updateBlog)

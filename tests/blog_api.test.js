@@ -123,34 +123,34 @@ describe('posting blogs', () => {
     })
 })
 
-// describe('deleting blogs',  () => {
-//     test('delete blog with id', async () => {
-//         const blogsBeforeDelete = await helper.blogsInDb()
+describe('deleting blogs',  () => {
+    test('delete blog with id', async () => {
+        const blogsBeforeDelete = await helper.blogsInDb()
 
-//         const login = await api
-//             .post('/api/login')
-//             .send(loginDetails)
+        const login = await api
+            .post('/api/login')
+            .send(loginDetails)
 
-//         // eslint-disable-next-line no-unused-vars
-//         const testBlog = {
-//             title: 'Unreal Engine can now capture facial expressions via an official iOS app',
-//             author: 'Jon Porter',
-//             url: 'https://www.theverge.com/2020/7/9/21318440/unreal-engine-facial-capture-ios-app-arkit-truedepth-front-facing-camera-animation',
-//         }
+        // eslint-disable-next-line no-unused-vars
+        const testBlog = {
+            title: 'Unreal Engine can now capture facial expressions via an official iOS app',
+            author: 'Jon Porter',
+            url: 'https://www.theverge.com/2020/7/9/21318440/unreal-engine-facial-capture-ios-app-arkit-truedepth-front-facing-camera-animation',
+        }
 
-//         const blogToDelete = blogsBeforeDelete[2]
+        const blogToDelete = blogsBeforeDelete[2]
 
-//         await api
-//             .delete(`/api/blogs/${blogToDelete.id}`)
-//             // eslint-disable-next-line quotes
-//             .set({ "Authorization": `Bearer ${login.body.token}` })
-//             .expect(204)
+        await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            // eslint-disable-next-line quotes
+            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .expect(204)
 
-//         const blogsAfterDelete = await helper.blogsInDb()
+        const blogsAfterDelete = await helper.blogsInDb()
 
-//         expect(blogsAfterDelete.length).toBe(blogsBeforeDelete.length - 1)
-//     })
-// })
+        expect(blogsAfterDelete.length).toBe(blogsBeforeDelete.length - 1)
+    })
+})
 
 describe('updating blogs',  () => {
     test('update blog works', async () => {
