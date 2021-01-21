@@ -40,3 +40,6 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "part11-bloglist"
           heroku_email: "julius.lubys@gmail.com"
+          healthcheck: "https://part11-bloglist.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
