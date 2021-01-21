@@ -11,7 +11,6 @@ describe('<BLOG />', () => {
         author: 'Random author',
         likes: 5,
         url: 'http://randomurl.com',
-        id: '1'
     }
 
     beforeEach(() => {
