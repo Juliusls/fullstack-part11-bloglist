@@ -42,4 +42,3 @@ jobs:
           heroku_email: "julius.lubys@gmail.com"
           healthcheck: "https://part11-bloglist.herokuapp.com/health"
           checkstring: "ok"
-          rollbackonhealthcheckfailed: true
