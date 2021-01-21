@@ -43,4 +43,3 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "part11-bloglist"
           heroku_email: "julius.lubys@gmail.com"
-          procfile: "web: npm start"
