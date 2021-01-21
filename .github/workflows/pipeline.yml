@@ -44,5 +44,3 @@ jobs:
           heroku_app_name: "part11-bloglist"
           heroku_email: "julius.lubys@gmail.com"
           procfile: "web: npm start"
-          healthcheck: "https://part11-bloglist.herokuapp.com/health"
-          checkstring: "ok"
