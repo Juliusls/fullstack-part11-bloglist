@@ -108,7 +108,6 @@ const App = () => {
             setFetchInProgress(true)
 
             blogService.setToken(user.token)
-            console.log(user.token)
 
             await blogService
                 .deleteBlog(id)
