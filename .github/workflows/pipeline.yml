@@ -39,6 +39,7 @@ jobs:
           wait-on: http://localhost:3001
       - name: pushing code to heroku
         uses: akhileshns/heroku-deploy@v3.8.9
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "part11-bloglist"
