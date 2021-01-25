@@ -1,7 +1,7 @@
-const healthCheckRouter = require('express').Router()
+const version = require('express').Router()
 
-healthCheckRouter.get('/', async (request, response) => {
-    response.send('1')
+version.get('/', async (request, response) => {
+    response.send('2')
 })
 
-module.exports = healthCheckRouter
+module.exports = version
