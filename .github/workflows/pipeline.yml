@@ -27,16 +27,16 @@ jobs:
         run: npm run lint:all
       - name: build
         run: npm run build:client
+      - name: test backend
+        run: npm run test
+      - name: test frontend
+        run: npm run test:client
       - name: test e2e
         uses: cypress-io/github-action@v2
         with:
           command: npm run test:e2e
           start: npm run start:test
           wait-on: http://localhost:3001
-      - name: test backend
-        run: npm run test
-      - name: test frontend
-        run: npm run test:client
       - name: pushing code to heroku
         uses: akhileshns/heroku-deploy@v3.8.9
         if: ${{ github.event_name == 'push' }}
