@@ -47,6 +47,10 @@ jobs:
           healthcheck: "https://pokedexbyjulius.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
+        env:
+          HD_MONGO_URI: ${{ secrets.MONGODB_URI }} 
+          HD_SECRET: ${{secrets.SECRET}}
+          HD_SKIP_PREFLIGHT_CHECK: true
       - uses: actions/checkout@v2
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.33.0
