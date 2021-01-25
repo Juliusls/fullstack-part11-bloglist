@@ -38,8 +38,6 @@ blogsRouter.post('/', async (request, response, next) => {
             user: user._id
         })
 
-        console.log(blog)
-
         const savedBlog = await blog.save()
         user.blogs = user.blogs.concat(savedBlog._id)
         await user.save()
@@ -53,9 +51,6 @@ blogsRouter.post('/', async (request, response, next) => {
 blogsRouter.delete('/:id', async (request, response, next) => {
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
     const blog = await Blog.findById(request.params.id)
-
-    console.log('blog.user.toString()', blog)
-    console.log('decodedToken.id.toString()', decodedToken.id.toString())
 
     if (!request.token || !decodedToken.id) {
         return response.status(401).json({
