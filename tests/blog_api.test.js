@@ -1,15 +1,32 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
+const bcrypt = require('bcrypt')
 const helper = require('./test_helper')
 const app = require('../app')
 const api = supertest(app)
+const Blog = require('../models/blog')
+const User = require('../models/user')
 
-const loginDetails = {
-    // eslint-disable-next-line quotes
-    "username": "Julius",
-    // eslint-disable-next-line quotes
-    "password": "mypassword"
-}
+const initialBlogs = [
+    {
+        title: 'Backend testing',
+        author: 'Julius',
+        url: 'https://theverge.com/'
+    },
+    {
+        title: 'Test the backend',
+        author: 'Julius',
+        url: 'https://theverge.com/'
+    },
+]
+
+beforeEach(async () => {
+    await Blog.deleteMany({})
+
+    const initBlogObjects = initialBlogs.map((blog) => new Blog(blog))
+    const promiseObjectsArray = initBlogObjects.map((blog) => blog.save())
+    await Promise.all(promiseObjectsArray)
+})
 
 describe('information about blogs in db', () => {
     test('correct number of blogs are returned and in json', async () => {
@@ -25,12 +42,26 @@ describe('information about blogs in db', () => {
 })
 
 describe('posting blogs', () => {
+    let token = null
+    beforeAll(async () => {
+        await User.deleteMany({})
+
+        const passwordHash = await bcrypt.hash('mypassword', 10)
+        const user = new User({ username: 'julius', passwordHash })
+
+        await user.save()
+
+        await api
+            .post('/api/login')
+            .send({ username: 'julius', password: 'mypassword' })
+            .then((res) => {
+                return (token = res.body.token)
+            })
+
+        return token
+    })
     test('a valid blog can be added', async () => {
         const blogsBeforePost = await helper.blogsInDb()
-
-        const login = await api
-            .post('/api/login')
-            .send(loginDetails)
 
         const testBlog = {
             title: 'Android 11 latest beta is all about stability',
@@ -42,7 +73,7 @@ describe('posting blogs', () => {
         await api
             .post('/api/blogs')
             // eslint-disable-next-line quotes
-            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .set('Authorization', `Bearer ${token}`)
             .send(testBlog)
             .expect(201)
             .expect('Content-Type', /application\/json/)
@@ -55,9 +86,6 @@ describe('posting blogs', () => {
     })
 
     test('missing likes defaults to 0', async () => {
-        const login = await api
-            .post('/api/login')
-            .send(loginDetails)
 
         const testBlog = {
             title: 'Unreal Engine can now capture facial expressions via an official iOS app',
@@ -68,7 +96,7 @@ describe('posting blogs', () => {
         await api
             .post('/api/blogs')
             // eslint-disable-next-line quotes
-            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .set('Authorization', `Bearer ${token}`)
             .send(testBlog)
             .expect(201)
             .expect('Content-Type', /application\/json/)
@@ -80,10 +108,6 @@ describe('posting blogs', () => {
     })
 
     test('no title or url', async () => {
-        const login = await api
-            .post('/api/login')
-            .send(loginDetails)
-
         const testBlog = {
             author: 'Jon Porter'
         }
@@ -91,7 +115,7 @@ describe('posting blogs', () => {
         await api
             .post('/api/blogs')
             // eslint-disable-next-line quotes
-            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .set({ "Authorization": `Bearer ${token}` })
             .send(testBlog)
             .expect(400)
 
@@ -125,19 +149,46 @@ describe('posting blogs', () => {
 })
 
 describe('deleting blogs',  () => {
-    test('delete blog with id', async () => {
-        const blogsBeforeDelete = await helper.blogsInDb()
+    let token = null
+    beforeEach(async () => {
+        await User.deleteMany({})
 
-        const login = await api
+        const passwordHash = await bcrypt.hash('mypassword', 10)
+        const user = new User({ username: 'julius', passwordHash })
+
+        await user.save()
+
+        await api
             .post('/api/login')
-            .send(loginDetails)
+            .send({ username: 'julius', password: 'mypassword' })
+            .then((res) => {
+                return (token = res.body.token)
+            })
 
-        const blogToDelete = blogsBeforeDelete[3]
+        return token
+    })
+    test('delete blog with id', async () => {
+        const blogForDeleteTest = {
+            title: 'Test the backend',
+            author: 'Julius',
+            url: 'https://theverge.com/'
+        }
+
+        await api
+            .post('/api/blogs')
+            .send(blogForDeleteTest)
+            // eslint-disable-next-line quotes
+            .set('Authorization', `Bearer ${token}`)
+            .expect(201)
+
+        const blogsBeforeDelete = await Blog.find({}).populate('user')
+
+        const blogToDelete = blogsBeforeDelete[2]
 
         await api
             .delete(`/api/blogs/${blogToDelete.id}`)
             // eslint-disable-next-line quotes
-            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .set({ "Authorization": `Bearer ${token}` })
             .expect(204)
 
         const blogsAfterDelete = await helper.blogsInDb()
@@ -147,10 +198,25 @@ describe('deleting blogs',  () => {
 })
 
 describe('updating blogs',  () => {
-    test('update blog works', async () => {
-        const login = await api
+    let token = null
+    beforeAll(async () => {
+        await User.deleteMany({})
+
+        const passwordHash = await bcrypt.hash('mypassword', 10)
+        const user = new User({ username: 'julius', passwordHash })
+
+        await user.save()
+
+        await api
             .post('/api/login')
-            .send(loginDetails)
+            .send({ username: 'julius', password: 'mypassword' })
+            .then((res) => {
+                return (token = res.body.token)
+            })
+
+        return token
+    })
+    test('update blog works', async () => {
         const blogsBeforePut = await helper.blogsInDb()
         const blogToUpdate = blogsBeforePut[0]
 
@@ -162,7 +228,7 @@ describe('updating blogs',  () => {
             .put(`/api/blogs/${blogToUpdate.id}`)
             .send(testBlog)
             // eslint-disable-next-line quotes
-            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .set('Authorization', `Bearer ${token}`)
             .expect(204)
 
         const blogsAfterPut = await helper.blogsInDb()
