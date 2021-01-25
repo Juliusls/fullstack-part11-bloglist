@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "start:test": "cross-env NODE_ENV=test node index.js",
@@ -21,6 +21,7 @@
   "dependencies": {
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
@@ -29,7 +30,6 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.12.10",
-    "cross-env": "^7.0.0",
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.22.0",
     "jest": "^24.9.0",
