@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
+const Blog = require('../models/blog')
 const api = supertest(app)
 
 const loginDetails = {
@@ -131,14 +132,7 @@ describe('deleting blogs',  () => {
             .post('/api/login')
             .send(loginDetails)
 
-        // eslint-disable-next-line no-unused-vars
-        const testBlog = {
-            title: 'Unreal Engine can now capture facial expressions via an official iOS app',
-            author: 'Jon Porter',
-            url: 'https://www.theverge.com/2020/7/9/21318440/unreal-engine-facial-capture-ios-app-arkit-truedepth-front-facing-camera-animation',
-        }
-
-        const blogToDelete = blogsBeforeDelete[2]
+        const blogToDelete = blogsBeforeDelete[3]
 
         await api
             .delete(`/api/blogs/${blogToDelete.id}`)
