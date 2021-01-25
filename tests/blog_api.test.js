@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const supertest = require('supertest')
 const helper = require('./test_helper')
 const app = require('../app')
-const Blog = require('../models/blog')
 const api = supertest(app)
 
 const loginDetails = {
@@ -125,27 +124,27 @@ describe('posting blogs', () => {
     })
 })
 
-// describe('deleting blogs',  () => {
-//     test('delete blog with id', async () => {
-//         const blogsBeforeDelete = await helper.blogsInDb()
+describe('deleting blogs',  () => {
+    test('delete blog with id', async () => {
+        const blogsBeforeDelete = await helper.blogsInDb()
 
-//         const login = await api
-//             .post('/api/login')
-//             .send(loginDetails)
+        const login = await api
+            .post('/api/login')
+            .send(loginDetails)
 
-//         const blogToDelete = blogsBeforeDelete[3]
+        const blogToDelete = blogsBeforeDelete[3]
 
-//         await api
-//             .delete(`/api/blogs/${blogToDelete.id}`)
-//             // eslint-disable-next-line quotes
-//             .set({ "Authorization": `Bearer ${login.body.token}` })
-//             .expect(204)
+        await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            // eslint-disable-next-line quotes
+            .set({ "Authorization": `Bearer ${login.body.token}` })
+            .expect(204)
 
-//         const blogsAfterDelete = await helper.blogsInDb()
+        const blogsAfterDelete = await helper.blogsInDb()
 
-//         expect(blogsAfterDelete.length).toBe(blogsBeforeDelete.length - 1)
-//     })
-// })
+        expect(blogsAfterDelete.length).toBe(blogsBeforeDelete.length - 1)
+    })
+})
 
 describe('updating blogs',  () => {
     test('update blog works', async () => {
