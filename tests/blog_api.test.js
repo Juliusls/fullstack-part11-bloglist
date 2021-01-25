@@ -99,6 +99,7 @@ describe('posting blogs', () => {
         const blogsAfterPost = await helper.blogsInDb()
         expect(blogsAfterPost.length).toBe(blogsAfterPost.length)
     })
+
     test('adding blog fails if token is not provided', async () => {
         const blogsBeforePost = await helper.blogsInDb()
 
