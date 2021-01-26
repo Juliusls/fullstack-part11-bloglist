@@ -19,11 +19,10 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
         console.error('error connecing to MongoDB', error.message)
     })
 
-app.use(middleware.tokenExtractor)
 app.use(cors())
+app.use(express.static('./client/build'))
 app.use(express.json())
-
-app.use(express.static('build'))
+app.use(middleware.tokenExtractor)
 
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
