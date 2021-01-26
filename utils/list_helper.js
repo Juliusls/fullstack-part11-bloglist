@@ -31,12 +31,10 @@ const mostBlogs = (blogs) => {
 
     blogs.forEach(blog => {
         const currentAuthor = blog.author
-        console.log('currentAuthor', currentAuthor)
 
         authorsOcurrences[currentAuthor]
             ? authorsOcurrences[currentAuthor]++
             : authorsOcurrences[currentAuthor] = 1
-        console.log('authorsOcurrences', authorsOcurrences)
 
         if (authorsOcurrences[author] < authorsOcurrences[currentAuthor])
             author = currentAuthor

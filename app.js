@@ -7,6 +7,7 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const healthCheckRouter = require('./controllers/healthCheck')
 const version = require('./controllers/version')
+const pingpong = require('./controllers/pingpong')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 
@@ -29,6 +30,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 app.use('/health', healthCheckRouter)
 app.use('/version', version)
+app.use('/ping', pingpong)
 
 if (process.env.NODE_ENV === 'test') {
     const testingRouter = require('./controllers/testing')
