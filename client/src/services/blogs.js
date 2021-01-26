@@ -5,6 +5,7 @@ let token = null
 
 const setToken = (newToken) => {
     token = `bearer ${newToken}`
+    console.log('token set to', token)
 }
 
 const getAll = async () => {
@@ -30,8 +31,6 @@ const deleteBlog = async (id) => {
     const config = {
         headers: { Authorization: token },
     }
-
-    console.log('config', config)
 
     const response = await axios.delete(`${baseUrl}/${id}`, config)
     return response.data

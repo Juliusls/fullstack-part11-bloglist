@@ -58,25 +58,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-      # - uses: 8398a7/action-slack@v3
-      #   with:
-      #     status: custom
-      #     fields: commit,author,took
-      #     custom_payload: |
-      #       {
-      #         username: 'github_action',
-      #         attachments: [{
-      #           color: 'good',
-      #           text: `A new version deployed to https://part11-bloglist.herokuapp.com/ (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build in ${process.env.AS_TOOK}`,
-      #         }]
-      #       }
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #   if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') && success() }}
-      # - uses: 8398a7/action-slack@v3
-      #   with:
-      #     status: ${{ job.status }}
-      #     fields: all
-      #   env:
-      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-      #   if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') && failure() }}
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          fields: commit,author,took
+          custom_payload: |
+            {
+              username: 'github_action',
+              attachments: [{
+                color: 'good',
+                text: `A new version deployed to https://part11-bloglist.herokuapp.com/ (${process.env.AS_COMMIT}) by ${process.env.AS_AUTHOR} build in ${process.env.AS_TOOK}`,
+              }]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') && success() }}
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: all
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') && failure() }}
